@@ -1,0 +1,39 @@
+from pyspark.sql import SparkSession
+
+spark = (
+    SparkSession.builder
+    .appName("{{ pipeline_name }}")
+    .getOrCreate()
+)
+
+print(
+    "Starting Pipeline: {{ pipeline_name }}"
+)
+
+df = (
+    spark.read
+    .format("{{ source_type }}")
+    .load("{{ source_path }}")
+)
+
+{{ transformation_code }}
+
+{{ quality_code }}
+
+(
+    df.write
+    .mode("overwrite")
+    .format("{{ target_type }}")
+    .save("{{ target_path }}")
+)
+
+(
+    df.write
+    .mode("overwrite")
+    .format("{{ target_type }}")
+    .save("{{ target_path }}")
+)
+
+print(
+    "Pipeline Completed Successfully"
+)

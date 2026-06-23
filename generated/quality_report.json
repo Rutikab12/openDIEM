@@ -1,0 +1,14 @@
+{
+    "pipeline": "customer_ingestion",
+    "checks": [{
+            "rule": "not_null",
+            "column": "customer_id",
+            "status": "PASS"
+        },
+        {
+            "rule": "unique",
+            "column": "customer_id",
+            "status": "PASS"
+        }
+    ]
+}

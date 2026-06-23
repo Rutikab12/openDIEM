@@ -1,0 +1,26 @@
+pipeline_name: customer_ingestion
+
+source:
+  type: csv
+  path: sample_data/users.csv
+
+target:
+  type: parquet
+  path: output/customers
+
+load_type: full
+
+transformations:
+
+  - type: drop_duplicates
+
+quality_rules:
+
+  - type: not_null
+    column: customer_id
+
+  - type: unique
+    column: customer_id
+
+  - type: row_count
+    min_rows: 1
